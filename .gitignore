@@ -1,0 +1,5 @@
+API/appsettings.json
+API/Data/Migrations/20230227154325_InitialMigration1.cs
+API/Data/Migrations/20230227154325_InitialMigration1.Designer.cs
+API/Data/Migrations/StoreContextModelSnapshot.cs
+API/Data/Migrations/20230227145604_InitialMigration.Designer.cs
