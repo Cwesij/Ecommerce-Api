@@ -1,4 +1,5 @@
 using API.Data;
+using API.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -34,14 +35,19 @@ namespace API
                 // configure the database to use with the connection string
                 option.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            // register CORS(Cross Origin Resource Sharing) services
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // add the exception middleware at the beginning of the middleware pipeline
+            app.UseMiddleware<ExceptionMiddleware>();
+
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
@@ -49,6 +55,13 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // add CORS middleware after routing middleware
+            app.UseCors( opt =>
+            {
+                opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("");
+            });
+
 
             app.UseAuthorization();
 

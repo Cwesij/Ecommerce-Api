@@ -27,7 +27,7 @@ namespace API
             // try to seed data
             try
             {
-                // update database
+                // apply any pending migrations
                 context.Database.Migrate();
 
                 // seed the data

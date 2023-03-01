@@ -213,11 +213,13 @@ namespace API.Data
                 },
             };
         
+            // loop through the list and add the products to the storecontext
             foreach (var product in products)
             {
                 storeContext.Products.Add(product);
             }
 
+            // save the changes to the database
             storeContext.SaveChanges();
         }
     }
