@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
@@ -21,13 +22,16 @@ namespace API.Controllers
         [HttpGet] // api/products
         public async Task<ActionResult<List<Product>>> GetProducts()
         {
-            return await _storeContext.Products.ToListAsync();
+            var products = await _storeContext.Products.ToListAsync();
+            return products;
         }
 
         [HttpGet("{id:int}")] // api/products/3
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-             return    await _storeContext.Products.FindAsync(id);
+            var product = await _storeContext.Products.FindAsync(id);
+
+            return product == null ? NotFound() : product;  
         }
     }
 }
