@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import { Product } from '../models/product';
+import Catalog from '../../features/catalog/Catolog';
 
 
 function App() {
@@ -22,13 +22,7 @@ function App() {
   return (
     <div>
       <h1>Re-Store</h1>
-      <ol>
-          {products.map((product, index) => (
-            <li key={index}>{product.name} - {product.description} - {product.brand} - {product.price.toFixed(2)}</li>
-          ))}
-      </ol>
-      <button onClick={addProduct}>Add Product</button>
-      <button className='btn btn-primary' onClick={addProduct}>Add Product</button>
+      <Catalog products={products} addProduct={addProduct} />
     </div>
   );
 }
