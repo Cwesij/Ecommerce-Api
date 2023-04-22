@@ -23,11 +23,11 @@ namespace API.Entities
         public int Id { get; set; }
         public int Quantity { get; set; }
 
-        // navigation properties / relationships (Product)
+        // navigation property (Product)
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
-        // navigation properties / relationships (Basket)
+        // navigation property (Basket)
         public int BasketId { get; set; }
         public Basket Basket { get; set; }
 

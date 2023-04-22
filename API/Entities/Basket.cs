@@ -35,40 +35,39 @@ namespace API.Entities
                 1. we need to pass only the productId and the quantity to remove(reduce).
 
         */
+
         public int Id { get; set; }
         public string BuyerId { get; set; }
-        public List<BasketItem> Items { get; set; } = new List<BasketItem>();    
+        public List<BasketItem> Items { get; set; } = new List<BasketItem>();
 
-        // method to add items to basket
-        public void AddItems(Product product, int quantity)
+        // method to add items to the basket
+        public void AddItem(Product product, int quantity)
         {
-            // check if the item is not in the basket
-            if(Items.All( item => item.ProductId != product.Id))
+            // check if product is not in basket
+            if(Items.All( item => item.ProductId != product.Id)) 
             {
-                // create a new basketitem 
-                Items.Add(new BasketItem(){Product=product, Quantity=quantity});
+                // add a new item to the list
+                Items.Add(new BasketItem(){Product = product, Quantity = quantity});
             }
 
-            // if the item is already in the basket
-            var existingItem = Items.FirstOrDefault(item => item.ProductId == product.Id);
-
-            // if item exist then we need to adjust the quantity
+            // if item already exist, then adjust the quantity
+            var existingItem = Items.FirstOrDefault( item => item.ProductId == product.Id);
             if(existingItem != null) existingItem.Quantity += quantity;
-        }  
+        }
 
+        // method to remove items from the basket
         public void RemoveItem(int productId, int quantity)
         {
-            // retrieve the item to remove or reduce
-            var item = Items.FirstOrDefault( item => item.ProductId == productId);
+            // check if item in basket
+            var existingItem = Items.FirstOrDefault( item => item.ProductId == productId);
+            
+            if(existingItem == null) return;
+            // if item exist adjust only the quantity
+            existingItem.Quantity -= quantity;
 
-            // check if the item is null (Does not exist)
-            if(item == null) return;
-
-            // reduce the item quantity
-            item.Quantity -= quantity; 
-
-            // if the item quantity is zero(0) then we need to remove the item itself completely.
-            if(item.Quantity == 0) Items.Remove(item);
+            // if item quantity is zero(0), remove item
+            if(existingItem.Quantity == 0) Items.Remove(existingItem);
+            
         }
     }
 }

@@ -59,7 +59,7 @@ namespace API
             // add CORS middleware after routing middleware
             app.UseCors( opt =>
             {
-                opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("");
+                opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
             });
 
 
